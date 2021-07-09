@@ -451,15 +451,15 @@ setwd("~/GitHub/PortalTransparencia/Transferencias")
 # Clear console
 cat("\014")
 #Banco de dados Final
-#TF2016 <- fread("Ano2016/Transferencias2016.csv", dec = ",", encoding = "Latin-1") %>% 
+#TF2016 <- fread("Ano2016/Transferencias2016.csv", dec = ",", encoding = "Latin-1") %>%
 #          filter(TIPO_FAVORECIDO %in% c("ADMINISTRAÇÃO PÚBLICA MUNICIPAL"))
-#TF2017 <- fread("Ano2017/Transferencias2017.csv", dec = ",", encoding = "Latin-1") %>% 
+#TF2017 <- fread("Ano2017/Transferencias2017.csv", dec = ",", encoding = "Latin-1") %>%
 #          filter(TIPO_FAVORECIDO %in% c("ADMINISTRAÇÃO PÚBLICA MUNICIPAL"))
-TF2018 <- fread("Ano2018/Transferencias2018.csv", dec = ",", encoding = "Latin-1") %>% 
+TF2018 <- fread("Ano2018/Transferencias2018.csv", dec = ",", encoding = "Latin-1") %>%
           filter(TIPO_FAVORECIDO %in% c("ADMINISTRAÇÃO PÚBLICA MUNICIPAL"))
-TF2019 <- fread("Ano2019/Transferencias2019.csv", dec = ",", encoding = "Latin-1") %>% 
+TF2019 <- fread("Ano2019/Transferencias2019.csv", dec = ",", encoding = "Latin-1") %>%
           filter(TIPO_FAVORECIDO %in% c("ADMINISTRAÇÃO PÚBLICA MUNICIPAL"))
-TF2020 <- fread("Ano2020/Transferencias2020.csv", dec = ",", encoding = "Latin-1") %>% 
+TF2020 <- fread("Ano2020/Transferencias2020.csv", dec = ",", encoding = "Latin-1") %>%
           filter(TIPO_FAVORECIDO %in% c("ADMINISTRAÇÃO PÚBLICA MUNICIPAL"))
 
 Transferencias <- rbind(TF2018,
@@ -506,10 +506,10 @@ teste <- df %>% filter(LINGUAGEM_CIDADA=="SEM INFORMAÇÃO")
 
 library(geobr)
 df <- read_municipality(code_muni = "all")
-names(df) <- c("code_muni", 
-               "MUNICIPIO",    
+names(df) <- c("code_muni",
+               "MUNICIPIO",
                "code_state",
-               "UF", 
+               "UF",
                "geom")
 df <- df %>% select(1,2,4,5)
 df$MUNICIPIO<- str_to_upper(df$MUNICIPIO)
@@ -520,3 +520,19 @@ df1 <- Transferencias[1:10000,]
 df3 <- left_join(df1,
                  df,
                  by = c("MUNICIPIO"="MUNICIPIO", "UF"="UF"))
+
+Municipios <- read_municipality(
+  code_muni = "all",
+  year = 2010,
+  simplified = TRUE,
+  showProgress = TRUE
+)
+
+Regiao <- read_state(code_state = "all",year=2019)
+
+Meso <- read_meso_region(
+  code_meso = "all",
+  year = 2018,
+  simplified = TRUE,
+  showProgress = TRUE
+)
