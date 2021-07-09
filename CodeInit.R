@@ -5,20 +5,20 @@ library(tidyverse)
 library(plotly)
 df <- fread("DadosBrutos/202101_Transferencias.csv", dec=",",encoding ="Latin-1" )
 df <- df %>% select(c(1,3,4,6,8,16,27,35,36))
-<<<<<<< HEAD
+
 names(df) <- c("AnoMes","Tipo","Uf","Municipio","Orgao","Programa","PlanoOrcamentario","Favorecido","ValorTransferido")
 dfPM <- df %>% filter(Municipio %in% c("PARA DE MINAS", "FLORESTAL", "ITAUNA", "CONCEICAO DO PARA"))
-=======
+
 names(df) <- c("AnoMes","TIPO","Uf","Municipio","Orgao","Programa","PlanoOrcamentario","Favorecido","ValorTransferido")
 dfPM <- df %>% filter(Municipio %in% c("PARA DE MINAS", "FLORESTAL", "CONCEICAO DO PARA", "ITAUNA"))
 table(dfPM$Municipio, dfPM$ValorTransferido)
->>>>>>> 14f71d5df046f8a86a12c287dc3cd5f170193631
+
 tot <- sum(dfPM$`VALOR TRANSFERIDO`)
 
 Tot <- dfPM %>% group_by(Municipio) %>% summarise(Total=sum(ValorTransferido), .groups = 'drop')
 #criar gráficos comparando os valores recebidos no mês de janeiro de 5 cidades da região
 #usar gráficos do ggplot2
-<<<<<<< HEAD
+
 options(scipen = 999)
 Tot <- dfPM %>% group_by(Municipio) %>% summarise(Total=sum(ValorTransferido))
   plot1 <- ggplot(data = Tot, aes(x = Municipio,
@@ -55,7 +55,7 @@ Tot <- dfPM %>% group_by(Municipio) %>% summarise(Total=sum(ValorTransferido))
   ggplotly(plot3, tooltip = "text") %>% layout (showlegend = FALSE)
 
 ################################################################################
-=======
+
 #options(scipen = 999)
 Tot %>% ggplot(aes(Municipio,
                    Total,
@@ -69,4 +69,4 @@ Tot %>% ggplot(aes(Municipio,
 
 ggplot(data=Tot, aes(x=Municipio, y=Total)) +
   geom_bar(stat="identity")
->>>>>>> 14f71d5df046f8a86a12c287dc3cd5f170193631
+
